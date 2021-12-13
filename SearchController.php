@@ -75,17 +75,11 @@ class SearchController{
     */
 	private $queryEnd;
 
-	/**
-     * @var string SQL query suffix
-    */
-	private $sliptQuery;
-
 	public function __construct($algorithm = self::OR) {
 		$this->searchAlgorithm = $algorithm;
 		$this->operators = self::END_WITH_QUERY;
 		$this->queryStart = self::LIKE;
 	 	$this->queryEnd = self::OR;
-		$this->sliptQuery = true;
 	}
 		
 	/**
@@ -104,16 +98,6 @@ class SearchController{
      */
 	public function setSQLQuery($query){
 		$this->QueryCondition = $query;
-	}
-
-
-	/**
-     * Set allow search query value split queries.
-     *
-     * @param bool          $bool true|false
-     */
-	public function allowSplitQuery($bool){
-		$this->sliptQuery = $bool;
 	}
 
 	/**
@@ -164,10 +148,10 @@ class SearchController{
 	}
 
 	/**
-     * Convert search query value from string to array.
+     * Split search query value by space.
      */
-	public function toArray(){
-		if($this->sliptQuery && strpos($this->searchQuery, " ") !== false) {
+	public function split(){
+		if(strpos($this->searchQuery, " ") !== false) {
 			$this->searchQuery = explode(" ", $this->searchQuery);
 			return;
 		}
