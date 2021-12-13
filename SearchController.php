@@ -10,6 +10,9 @@ namespace Peterujah\NanoBlock;
  * Class SearchController.
  */
 class SearchController{
+	/**
+     * @var string SQL patterns 
+    */
 	const START_WITH_QUERY = "query%";
 	const END_WITH_QUERY = "%query";
 	const HAVE_ANY_QUERY = "%query%";
@@ -18,10 +21,17 @@ class SearchController{
 	const START_WITH_QUERY_3LENGTH = "query__%";
 	const START_END_WITH_QUERY = "query%query";
 
+	/**
+     * @var string SearchController algorithms 
+    */
 	const OR = "OR";
 	const AND = "AND";
 	const NAND = "NAND";
 	const NOR = "NOR";
+
+	/**
+     * @var string SQL search keywords 
+    */
 	const LIKE = "LIKE";
 	const NOT_LIKE = "NOT LIKE";
 
@@ -65,11 +75,17 @@ class SearchController{
     */
 	private $queryEnd;
 
+	/**
+     * @var string SQL query suffix
+    */
+	private $sliptQuery;
+
 	public function __construct($algorithm = self::OR) {
 		$this->searchAlgorithm = $algorithm;
 		$this->operators = self::END_WITH_QUERY;
 		$this->queryStart = self::LIKE;
 	 	$this->queryEnd = self::OR;
+		$this->sliptQuery = true;
 	}
 		
 	/**
@@ -88,6 +104,16 @@ class SearchController{
      */
 	public function setSQLQuery($query){
 		$this->QueryCondition = $query;
+	}
+
+
+	/**
+     * Set allow search query value split queries.
+     *
+     * @param bool          $bool true|false
+     */
+	public function allowSplitQuery($bool){
+		$this->sliptQuery = $bool;
 	}
 
 	/**
@@ -141,7 +167,7 @@ class SearchController{
      * Convert search query value from string to array.
      */
 	public function toArray(){
-		if(strpos($this->searchQuery, " ") !== false) {
+		if($this->sliptQuery && strpos($this->searchQuery, " ") !== false) {
 			$this->searchQuery = explode(" ", $this->searchQuery);
 			return;
 		}
