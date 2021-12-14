@@ -13,9 +13,7 @@
         "php": "^7.0 || ^8.0"
     },
     "require-dev": {
-        "peterujah/php-search-controller": "^0.1",
-        "peterujah/php-search-controller-file": "^0.1",
-        "symfony/intl": "^4.3"
+        "peterujah/php-search-controller": "^0.1"
     },
     "scripts": {
         "post-install-cmd": [
@@ -30,5 +28,8 @@
             "vendor/umpirsky/list-generator/Dockerfile": "./",
             "vendor/umpirsky/list-generator/docker-compose.yml": "./"
         }
+    },
+    "autoload": {
+        "psr-4": { "Peterujah\\NanoBlock\\": "src/" }
     }
 }
