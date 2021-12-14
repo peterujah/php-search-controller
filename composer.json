@@ -23,7 +23,17 @@
             "PeterUjah\\CopyFile\\ScriptHandler::copy"
         ]
     },
+     "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
     "autoload": {
-        "psr-4": { "Peterujah\\NanoBlock\\": "src/" }
-    }
+        "psr-4": { 
+            "Peterujah\\NanoBlock\\": "src/" 
+        }
+    },
+    
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
