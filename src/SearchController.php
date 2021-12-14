@@ -192,9 +192,9 @@ class SearchController{
 		if(!empty($this->paramTags)){
 			if(is_array($this->searchQuery)) {
 				foreach($this->searchQuery as $tag){
-					$sql .= "FIND_IN_SET('{$tag}',{$this->paramTags}) {$this->queryEnd} "; //OR
+					$sql .= "FIND_IN_SET('{$tag}',{$this->paramTags}) {$this->queryEnd} ";
 				}
-				$sql = rtrim($sql , " {$this->queryEnd} "); //OR
+				$sql = rtrim($sql , " {$this->queryEnd} ");
 			}else{
 				$sql .= "FIND_IN_SET('{$this->searchQuery}',{$this->paramTags})"; 
 			}
@@ -204,7 +204,7 @@ class SearchController{
 				for ($i = 0; $i < $arrayCount; $i++) {
 					$sql .= $this->buildArrayQuery($i);
 					if ($i != $arrayCount - 1) { 
-						$sql .=  " {$this->queryEnd} "; //OR
+						$sql .=  " {$this->queryEnd} ";
 					}
 				}
 			} else {
