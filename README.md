@@ -40,3 +40,16 @@ $db->conn()->execute();
 $resault = $db->conn()->getAll();
 $db->conn()->free();
 ```
+
+# Refrence
+
+| Search Operators         | Description                                                                       |
+|--------------------------|-----------------------------------------------------------------------------------|
+| START_WITH_QUERY         | Finds any values that start with "query"                                          |
+| END_WITH_QUERY           | Finds any values that end with "query"                                            |
+| HAVE_ANY_QUERY           | Finds any values that have "query" in any position                                |
+| HAVE_SECOND_QUERY        | Finds any values that have "query" in the second position                         |
+| START_WITH_QUERY_2LENGTH | Finds any values that start with "query" and are at least 2 characters in length  |
+| START_WITH_QUERY_3LENGTH | Finds any values that start with "query" and are at least 3 characters in length  |
+| START_END_WITH_QUERY     | Finds any values that start with "query" and ends with "query"                    |
+
