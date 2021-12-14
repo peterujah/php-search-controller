@@ -23,12 +23,6 @@
             "PeterUjah\\CopyFile\\ScriptHandler::copy"
         ]
     },
-    "extra": {
-        "copy-file": {
-            "vendor/umpirsky/list-generator/Dockerfile": "./",
-            "vendor/umpirsky/list-generator/docker-compose.yml": "./"
-        }
-    },
     "autoload": {
         "psr-4": { "Peterujah\\NanoBlock\\": "src/" }
     }
