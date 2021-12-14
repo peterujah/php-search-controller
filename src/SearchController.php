@@ -168,32 +168,8 @@ class SearchController{
 	private function format($value) {
 		$queryString = "";
 		foreach($this->paramArray as $col){
-			switch ($this->operators){ 
-				case self::START_WITH_QUERY: 
-					$queryString .=  $col . " {$this->queryStart} '{$value}%' {$this->queryEnd} ";
-				break; 
-				case self::END_WITH_QUERY: 
-					$queryString .= $col . " {$this->queryStart} '%{$value}' {$this->queryEnd} ";
-				break; 
-				case self::HAVE_ANY_QUERY: 
-					$queryString .= $col . " {$this->queryStart} '%{$value}%' {$this->queryEnd} ";
-				break; 
-				case self::HAVE_SECOND_QUERY: 
-					$queryString .= $col . " {$this->queryStart} '_{$value}%' {$this->queryEnd} ";
-				break;
-				case self::START_WITH_QUERY_2LENGTH: 
-					$queryString .= $col . " {$this->queryStart} '{$value}_%' {$this->queryEnd} ";
-				break;
-				case self::START_WITH_QUERY_3LENGTH: 
-					$queryString .= $col . " {$this->queryStart} '{$value}__%' {$this->queryEnd} ";
-				break;
-				case self::START_END_WITH_QUERY: 
-					$queryString .= $col . " {$this->queryStart} '{$value}%{$value}' {$this->queryEnd} ";
-				break;
-				default:
-					$queryString .= $col . " {$this->queryStart} '%{$value}%' {$this->queryEnd} ";
-				break;
-			}
+			$sqlQuery = str_replace("query", $value, $this->operators);
+			$queryString .=  $col . " {$this->queryStart} '{$sqlQuery}' {$this->queryEnd} ";
 		}
 		return $queryString;
 	}
