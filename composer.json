@@ -1,0 +1,34 @@
+{
+    "name": "peterujah/PHPSearchController",
+    "type": "library",
+    "description": "Php advance search class for mysql database.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ujah Chigozie",
+            "email": "ujahchigozie@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0 || ^8.0"
+    },
+    "require-dev": {
+        "peterujah/PHPSearchController": "^0.1",
+        "peterujah/PHPSearchController": "^0.1",
+        "symfony/intl": "^4.3"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "PeterUjah\\CopyFile\\ScriptHandler::copy"
+        ],
+        "post-update-cmd": [
+            "PeterUjah\\CopyFile\\ScriptHandler::copy"
+        ]
+    },
+    "extra": {
+        "copy-file": {
+            "vendor/umpirsky/list-generator/Dockerfile": "./",
+            "vendor/umpirsky/list-generator/docker-compose.yml": "./"
+        }
+    }
+}
