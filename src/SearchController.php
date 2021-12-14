@@ -13,27 +13,27 @@ class SearchController{
 	/**
      * @var string SQL patterns 
     */
-	const START_WITH_QUERY = "query%";
-	const END_WITH_QUERY = "%query";
-	const HAVE_ANY_QUERY = "%query%";
-	const HAVE_SECOND_QUERY = "_query%";
-	const START_WITH_QUERY_2LENGTH = "query_%";
-	const START_WITH_QUERY_3LENGTH = "query__%";
-	const START_END_WITH_QUERY = "query%query";
+	public const START_WITH_QUERY = "query%";
+	public const END_WITH_QUERY = "%query";
+	public const HAVE_ANY_QUERY = "%query%";
+	public const HAVE_SECOND_QUERY = "_query%";
+	public const START_WITH_QUERY_2LENGTH = "query_%";
+	public const START_WITH_QUERY_3LENGTH = "query__%";
+	public const START_END_WITH_QUERY = "query%query";
 
 	/**
      * @var string SearchController algorithms 
     */
-	const OR = "OR";
-	const AND = "AND";
-	const NAND = "NAND";
-	const NOR = "NOR";
+	public const OR = "OR";
+	public const AND = "AND";
+	public const NAND = "NAND";
+	public const NOR = "NOR";
 
 	/**
      * @var string SQL search keywords 
     */
-	const LIKE = "LIKE";
-	const NOT_LIKE = "NOT LIKE";
+	public const LIKE = "LIKE";
+	public const NOT_LIKE = "NOT LIKE";
 
 	/**
      * @var string SQL Query 
