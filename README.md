@@ -1,5 +1,12 @@
 # PHPSearchController
 
+## Installation
+
+Installation is super-easy via Composer:
+```md
+composer require peterujah/php-search-controller
+```
+
 ```php 
 $search = new Peterujah\NanoBlock\SearchController(Peterujah\NanoBlock\SearchController::OR);
 $search->setOperators(Peterujah\NanoBlock\SearchController::HAVE_ANY_QUERY);
