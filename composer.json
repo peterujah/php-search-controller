@@ -1,5 +1,5 @@
 {
-    "name": "peterujah/PHPSearchController",
+    "name": "peterujah/php-search-controller",
     "type": "library",
     "description": "Php advance search class for mysql database.",
     "license": "MIT",
@@ -13,8 +13,8 @@
         "php": "^7.0 || ^8.0"
     },
     "require-dev": {
-        "peterujah/PHPSearchController": "^0.1",
-        "peterujah/PHPSearchController": "^0.1",
+        "peterujah/php-search-controller": "^0.1",
+        "peterujah/php-search-controller-file": "^0.1",
         "symfony/intl": "^4.3"
     },
     "scripts": {
