@@ -1,5 +1,7 @@
 # PHPSearchController
 
+PHPSearchController is a simple php class to search mysql database, 
+
 ## Installation
 
 Installation is super-easy via Composer:
