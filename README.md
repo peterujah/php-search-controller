@@ -8,8 +8,9 @@ composer require peterujah/php-search-controller
 ```
 
 ```php 
-$search = new Peterujah\NanoBlock\SearchController(Peterujah\NanoBlock\SearchController::OR);
-$search->setOperators(Peterujah\NanoBlock\SearchController::HAVE_ANY_QUERY);
+use Peterujah\NanoBlock\SearchController;
+$search = new SearchController(SearchController::OR);
+$search->setOperators(SearchController::HAVE_ANY_QUERY);
 ```
 
 # Usages
@@ -50,6 +51,8 @@ $db->conn()->free();
 
 # Refrence
 
+Specify search operator `$search->setOperators(SearchController::HAVE_ANY_QUERY)`
+
 | Search Operators         | Description                                                                       |
 |--------------------------|-----------------------------------------------------------------------------------|
 | START_WITH_QUERY         | Finds any values that start with "query"                                          |
@@ -59,4 +62,14 @@ $db->conn()->free();
 | START_WITH_QUERY_2LENGTH | Finds any values that start with "query" and are at least 2 characters in length  |
 | START_WITH_QUERY_3LENGTH | Finds any values that start with "query" and are at least 3 characters in length  |
 | START_END_WITH_QUERY     | Finds any values that start with "query" and ends with "query"                    |
+
+
+Initalise search class with a method `new SearchController(SearchController::OR)`
+
+| Search Methods         | Description                                                                         |
+|------------------------|-------------------------------------------------------------------------------------|
+| OR                     | Retrieve result with any one of search query                                        |
+| AND                    | Retrieve result with the exact of search quer                                       |
+| NAND                   | Retrieve result without the exact search query                                      |
+| NOR                    | Retrieve result without any on of the search query                                  |
 
