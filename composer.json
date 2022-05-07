@@ -2,6 +2,17 @@
     "name": "peterujah/php-search-controller",
     "type": "library",
     "description": "Php advance search class for mysql database.",
+    "keywords": [
+        "library",
+        "search",
+        "php",
+        "php search",
+        "mysql search",
+        "sql search",
+        "advance search",
+        "search class"
+        "php search class"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -12,20 +23,9 @@
     "require": {
         "php": "^7.0 || ^8.0"
     },
-    "require-dev": {
-        "peterujah/php-search-controller": "^0.1"
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "PeterUjah\\CopyFile\\ScriptHandler::copy"
-        ],
-        "post-update-cmd": [
-            "PeterUjah\\CopyFile\\ScriptHandler::copy"
-        ]
-    },
      "extra": {
         "branch-alias": {
-            "dev-master": "0.1-dev"
+            "dev-master": "1.2-dev"
         }
     },
     "autoload": {
