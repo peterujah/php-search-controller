@@ -1,7 +1,7 @@
 {
   "name": "@peterujah/php-search-controller",
   "description": "Php advance search class for mysql database.",
-  "version": "0.1",
+  "version": "1.2",
   "homepage": "http://github.com/peterujah/php-search-controller",
   "repository": "git://github.com/peterujah/php-search-controller.git",
   "author": "Ujah Chigozie <ujahchigozie@gmail.com>",
