@@ -33,7 +33,5 @@
             "Peterujah\\NanoBlock\\": "src/" 
         }
     },
-    
-    "minimum-stability": "dev",
     "prefer-stable": true
 }
