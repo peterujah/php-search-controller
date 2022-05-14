@@ -1,6 +1,8 @@
 # PHPSearchController
 
-PHPSearchController is a simple php class to search mysql database, 
+PHPSearchController is a simple php class to search mysql database, it can build SQL query to perform MySQL database searches by takeing parameters that define database table fields and field values to search.
+
+The class generates SQL conditions used to build SQL queries to perform database searches for records that match the criteria based on the table fields and field values defined by the parameters, It then combine several conditions using SQL operators such as `AND, OR, NAND, LIKE NOR & FIND_IN_SET` and return the appropriate queries for the search.
 
 ## Installation
 
@@ -9,31 +11,41 @@ Installation is super-easy via Composer:
 composer require peterujah/php-search-controller
 ```
 
+# Usages
+
+Initialize the class with your preferred search method the default method is `SearchController::OR`.
 ```php 
 use Peterujah\NanoBlock\SearchController;
-$search = new SearchController(SearchController::OR);
+$search = new SearchController();
+```
+
+
+Set your preferred search operator the default is `SearchController::END_WITH_QUERY`.
+```php
 $search->setOperators(SearchController::HAVE_ANY_QUERY);
 ```
 
-# Usages
+To perform a database search build the search query like below.
 
 ```php 
 $searchQuery = "PHP Code";
-$searchByTags = false;
-
 $search->setQuery($searchQuery)->split();
-
-if(!$searchByTags){
-    $search->setParameter(array(
-        'code_title', 
-        'code_description', 
-        'code_info'
-    ));
-}else{
-    $search->setTags("code_tags");
-}
+$search->setParameter(array(
+    'code_title', 
+    'code_description', 
+    'code_info'
+));
 //var_export($search->getQuery());
 ```
+
+To search by tag using mysql `FIND_IN_SET`, build query like example below.
+```php 
+$searchQuery = "PHP Code";
+$search->setQuery($searchQuery)->split();
+$search->setTags("code_tags");
+//var_export($search->getQuery());
+```
+
 Set inital query and pass search query to your mysql connection
 
 ```php 
