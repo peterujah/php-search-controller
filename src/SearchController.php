@@ -218,7 +218,7 @@ class SearchController{
 	}
 
 	/**
-	* Execute search query.
+	* Gernerates the search query.
 	* @param string $checkOpt the search query start operator
 	* @return string SQL query
 	*/
