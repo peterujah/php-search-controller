@@ -216,30 +216,6 @@ class SearchController{
 		}
 		return $sql;
 	}
-	
-	/**
-	* Gets sql search query by apending AND clause.
-	* @return string SQL query
-	*/
-	public function getAndQuery(){
-		return $this->generateQuery("AND");
-	}
-	
-	/**
-	* Gets sql search query by apending WHERE clause.
-	* @return string SQL query
-	*/
-	public function getWhereQuery(){
-		return $this->generateQuery("WHERE");
-	}
-	
-	/**
-	* Gets sql search query by automatically detecting and apending start clause.
-	* @return string SQL query
-	*/
-	public function getQuery(){
-		return $this->generateQuery();
-	}
 
 	/**
 	* Execute search query.
@@ -284,5 +260,29 @@ class SearchController{
 			} 
 		}
 		return $this->QueryCondition;
+	}
+	
+	/**
+	* Gets sql search query by apending AND clause.
+	* @return string SQL query
+	*/
+	public function getAndQuery(){
+		return $this->generateQuery("AND");
+	}
+	
+	/**
+	* Gets sql search query by apending WHERE clause.
+	* @return string SQL query
+	*/
+	public function getWhereQuery(){
+		return $this->generateQuery("WHERE");
+	}
+	
+	/**
+	* Gets sql search query by automatically detecting and apending start clause.
+	* @return string SQL query
+	*/
+	public function getQuery(){
+		return $this->generateQuery();
 	}
 }
