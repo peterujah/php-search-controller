@@ -216,15 +216,44 @@ class SearchController{
 		}
 		return $sql;
 	}
-
+	
 	/**
-	* Execute search query.
+	* Gets sql search query by apending AND clause.
+	* @return string SQL query
+	*/
+	public function getAndQuery(){
+		return $this->generateQuery("AND");
+	}
+	
+	/**
+	* Gets sql search query by apending WHERE clause.
+	* @return string SQL query
+	*/
+	public function getWhereQuery(){
+		return $this->generateQuery("WHERE");
+	}
+	
+	/**
+	* Gets sql search query by automatically detecting and apending start clause.
 	* @return string SQL query
 	*/
 	public function getQuery(){
+		return $this->generateQuery();
+	}
+
+	/**
+	* Execute search query.
+	* @param string $checkOpt the search query start operator
+	* @return string SQL query
+	*/
+	public function generateQuery($checkOpt = "AUTO"){
 		if (!empty($this->searchQuery)){ 
 			if (!empty($this->searchQuery)){ 
-				$this->QueryCondition .= (!empty($this->QueryCondition) ? " AND (" : " WHERE (");
+				if($checkOpt != "AUTO" && empty($this->QueryCondition)){
+					$this->QueryCondition .= " {$checkOpt} (";
+				}else{
+					$this->QueryCondition .= (!empty($this->QueryCondition) ? " AND (" : " WHERE (");
+				}
 				switch ($this->searchAlgorithm){
 					case self::OR: 
 						$this->setStart(self::LIKE);
