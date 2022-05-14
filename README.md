@@ -50,17 +50,37 @@ Set inital query and pass search query to your mysql connection
 
 ```php 
 $search->setSQLQuery("SELECT * FROM code WHERE id = 1323");
-$db->conn()->prepare($search->getQuery());
+$db->conn()->prepare($search->getAndQuery());
 $db->conn()->execute();		
 $resault = $db->conn()->getAll();
 $db->conn()->free();
 ```
 OR bulid it with other sql query like below in your mysql connection
 ```php 
-$db->conn()->prepare("SELECT * FROM code " . $search->getQuery() . " AND id = 1323");
+$db->conn()->prepare("
+    SELECT * FROM code 
+    {$search->getWhereQuery()}
+    AND id = 1323
+");
 $db->conn()->execute();		
 $resault = $db->conn()->getAll();
 $db->conn()->free();
+```
+
+# Other Methods
+
+Returns the computed sql search queries by checking if initial query was specified or not to determine which start clause is needed.
+```php
+$search->getQuery()
+```
+
+Returns the computed search queries by using `AND` as the start clause.
+```php
+$search->getAndQuery()
+```
+Returns the computed search queries by using `WHERE` as the start clause.
+```php
+$search->getWhereQuery()
 ```
 
 # Refrence
