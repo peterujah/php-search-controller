@@ -222,48 +222,34 @@ class SearchController{
 	public function getQuery(){
 		if (!empty($this->searchQuery)){ 
 			if (!empty($this->searchQuery)){ 
-				if (!empty($this->QueryCondition)){ 
-					$this->QueryCondition .= " AND (";
-				}else { 
-					$this->QueryCondition .=  " WHERE (";
-				} 
-				
+				$this->QueryCondition .= (!empty($this->QueryCondition) ? " AND (" : " WHERE (");
 				switch ($this->searchAlgorithm){
-					
 					case self::OR: 
 						$this->setStart(self::LIKE);
 						$this->setEnd(self::OR);
-						$this->QueryCondition .= $this->buildSQL(); 
-						$this->QueryCondition .= " )";
 					break; 
 				
 					case self::AND: 
 						$this->setStart(self::LIKE);
 						$this->setEnd(self::AND);
-						$this->QueryCondition .= $this->buildSQL(); 
-						$this->QueryCondition .= " )";
 					break; 
 				
 					case self::NAND: 
 						$this->setStart(self::NOT_LIKE);
 						$this->setEnd(self::AND);
-						$this->QueryCondition .= $this->buildSQL(); 
-						$this->QueryCondition .= " )";
 					break; 
 				
 					case self::NOR: 
 						$this->setStart(self::NOT_LIKE);
 						$this->setEnd(self::OR);
-						$this->QueryCondition .= $this->buildSQL(); 
-						$this->QueryCondition .= " )";
 					break; 
 					default: 
 						$this->setStart(self::LIKE);
 						$this->setEnd(self::OR);
-						$this->QueryCondition .= $this->buildSQL(); 
-						$this->QueryCondition .= " )";
 					break;
 				}
+				$this->QueryCondition .= $this->buildSQL(); 
+				$this->QueryCondition .= " )";
 			} 
 		}
 		return $this->QueryCondition;
