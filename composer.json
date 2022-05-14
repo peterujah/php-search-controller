@@ -1,7 +1,7 @@
 {
     "name": "peterujah/php-search-controller",
     "type": "library",
-    "description": "Php advance search class for mysql database.",
+    "description": "Php advance mysql database search to perform search operations.",
     "keywords": [
         "library",
         "search",
@@ -9,6 +9,7 @@
         "php search",
         "mysql search",
         "sql search",
+        "mysql query",
         "advance search",
         "search class",
         "php search class"
@@ -25,7 +26,7 @@
     },
      "extra": {
         "branch-alias": {
-            "dev-master": "1.3-dev"
+            "dev-master": "1.4-dev"
         }
     },
     "autoload": {
