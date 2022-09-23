@@ -11,8 +11,8 @@ namespace Peterujah\NanoBlock;
  */
 class SearchController{
 	/**
-	* @var string SQL patterns 
-	*/
+     * @var string SQL patterns 
+    */
 	public const START_WITH_QUERY = "query%";
 	public const END_WITH_QUERY = "%query";
 	public const HAVE_ANY_QUERY = "%query%";
@@ -22,62 +22,59 @@ class SearchController{
 	public const START_END_WITH_QUERY = "query%query";
 
 	/**
-	* @var string SearchController algorithms 
-	*/
+     * @var string SearchController algorithms 
+    */
 	public const OR = "OR";
 	public const AND = "AND";
 	public const NAND = "NAND";
 	public const NOR = "NOR";
 
 	/**
-	* @var string SQL search keywords 
-	*/
+     * @var string SQL search keywords 
+    */
 	public const LIKE = "LIKE";
 	public const NOT_LIKE = "NOT LIKE";
 
 	/**
-	* @var string SQL Query 
-	*/
+     * @var string SQL Query 
+    */
 	private $QueryCondition = "";
 
 	/**
-	* @var string Search query algorithm that needs to be used
-	*/
+     * @var string Search query algorithm that needs to be used
+    */
 	private $searchAlgorithm;
 
 	/**
-	* @var string Search request query value
-	*/
+     * @var string Search request query value
+    */
 	private $searchQuery = null;
 
 	/**
-	* @var array MYSQL database table rows to search from
-	*/
+     * @var array MYSQL database table rows to search from
+    */
 	private $paramArray = array();
 
 	/**
-	* @var string MYSQL database table row for tag value
-	*/
+     * @var string MYSQL database table row for tag value
+    */
 	private $paramTags;
 
 	/**
-	* @var string SQL LIKE query operator to be use
-	*/
+     * @var string SQL LIKE query operator to be use
+    */
 	private $operators;
 
 	/**
-	* @var string SQL query prefix
-	*/
+     * @var string SQL query prefix
+    */
 	private $queryStart;
 
 	/**
-	* @var string SQL query suffix
-	*/
+     * @var string SQL query suffix
+    */
 	private $queryEnd;
 
-	/**
-	* Constructor
-	*/
 	public function __construct($algorithm = self::OR) {
 		$this->searchAlgorithm = $algorithm;
 		$this->operators = self::END_WITH_QUERY;
@@ -86,67 +83,78 @@ class SearchController{
 	}
 		
 	/**
-	* Set database search table  columns.
-	*
-	* @param array          $param columns
-	*/
+     * Set database search table  columns.
+     *
+     * @param array          $param columns
+     */
 	public function setParameter($param=array()){
 		$this->paramArray = $param;
+		return $this;
 	}
 
 	/**
-	* Set initial SQL queries.
-	* @param string  $query query
-	*/
+     * Set initial SQL queries.
+     *
+     * @param string          $query query
+     */
 	public function setSQLQuery($query){
 		$this->QueryCondition = $query;
 	}
 
 	/**
-	* Set database search operator pattern.
-	* @param string  $operator name
-	*/
-	public function setOperators($operator){
-		$this->operators = $operator;
+     * Set database search operator pattern.
+     *
+     * @param string          $pattern name
+     */
+	public function setOperators($pattern){
+		$this->operators = $pattern;
+		return $this;
 	}
 
 	/**
-	* Set database tag table column name.
-	* @param string  $column name
-	*/
+     * Set database tag table column name.
+     *
+     * @param string          $column name
+     */
 	public function setTags($column){
 		$this->paramTags = $column;
+		return $this;
 	}
 
 	/**
-	* Set search query value.
-	* @param string   $query query value
-	* @return object|SearchController 
-	*/
+     * Set search query value.
+     *
+     * @param string          $query query value
+     * @return object|SearchController 
+     */
 	public function setQuery($query){
 		$this->searchQuery = htmlspecialchars($query, ENT_QUOTES, "UTF-8");
 		return $this;
 	}
 	
 	/**
-	* Set query prefix string.
-	* @param string  $str query prefix
-	*/
+     * Set query prefix string.
+     *
+     * @param string          $str query prefix
+     */
 	public function setStart($str){
 		$this->queryStart = $str;
+		return $this;
 	}
 
 	/**
-	* Set query suffix string.
-	* @param string $str query suffix
-	*/
+     * Set query suffix string.
+     *
+     * @param string          $str query suffix
+     */
 	public function setEnd($str){
 		$this->queryEnd = $str;
+		return $this;
 	}
 
 	/**
-	* Split search query value by space.
-	*/
+     * Split search query value by space.
+     */
 	public function split(){
 		if(strpos($this->searchQuery, " ") !== false) {
 			$this->searchQuery = explode(" ", $this->searchQuery);
@@ -156,10 +164,11 @@ class SearchController{
 	}
 
 	/**
-	* Create SQL query from the specified pattern.
-	* @param string  $value query value
-	* @return string query
-	*/
+     * Create SQL query from the specified pattern.
+     *
+     * @param string          $value query value
+     * @return string query
+     */
 
 	private function format($value) {
 		$queryString = "";
@@ -170,26 +179,19 @@ class SearchController{
 		return $queryString;
 	}
 
-	/**
-	* Builds SQL search query.
-	* @return string query
-	*/
 	private function buildQuery(){
 		return rtrim($this->format($this->searchQuery) , " {$this->queryEnd} ");
 	}
 
-	/**
-	* Builds SQL search query array.
-	* @return array queries 
-	*/
 	private function buildArrayQuery($i = 0){
 		return rtrim($this->format($this->searchQuery[$i]) , " {$this->queryEnd} ");;
 	}
 
 	/**
-	* Determine which search method to use while creating query.
-	* @return string SQL query
-	*/
+     * Determine which search method to use while creating query.
+     *
+     * @return string SQL query
+     */
 	private function buildSQL(){
 		$sql = "";
 		if(!empty($this->paramTags)){
@@ -218,71 +220,57 @@ class SearchController{
 	}
 
 	/**
-	* Gernerates the search query.
-	* @param string $checkOpt the search query start operator
-	* @return string SQL query
-	*/
-	public function generateQuery($checkOpt = "AUTO"){
+     * Execute search query.
+     *
+     * @return string SQL query
+     */
+	public function getQuery(){
 		if (!empty($this->searchQuery)){ 
 			if (!empty($this->searchQuery)){ 
-				if($checkOpt != "AUTO" && empty($this->QueryCondition)){
-					$this->QueryCondition .= " {$checkOpt} (";
-				}else{
-					$this->QueryCondition .= (!empty($this->QueryCondition) ? " AND (" : " WHERE (");
-				}
+				if (!empty($this->QueryCondition)){ 
+					$this->QueryCondition .= " AND (";
+				}else { 
+					$this->QueryCondition .=  " WHERE (";
+				} 
+				
 				switch ($this->searchAlgorithm){
+					
 					case self::OR: 
 						$this->setStart(self::LIKE);
 						$this->setEnd(self::OR);
+						$this->QueryCondition .= $this->buildSQL(); 
+						$this->QueryCondition .= " )";
 					break; 
-
+				
 					case self::AND: 
 						$this->setStart(self::LIKE);
 						$this->setEnd(self::AND);
+						$this->QueryCondition .= $this->buildSQL(); 
+						$this->QueryCondition .= " )";
 					break; 
-
+				
 					case self::NAND: 
 						$this->setStart(self::NOT_LIKE);
 						$this->setEnd(self::AND);
+						$this->QueryCondition .= $this->buildSQL(); 
+						$this->QueryCondition .= " )";
 					break; 
-
+				
 					case self::NOR: 
 						$this->setStart(self::NOT_LIKE);
 						$this->setEnd(self::OR);
+						$this->QueryCondition .= $this->buildSQL(); 
+						$this->QueryCondition .= " )";
 					break; 
 					default: 
 						$this->setStart(self::LIKE);
 						$this->setEnd(self::OR);
+						$this->QueryCondition .= $this->buildSQL(); 
+						$this->QueryCondition .= " )";
 					break;
 				}
-				$this->QueryCondition .= $this->buildSQL(); 
-				$this->QueryCondition .= " )";
 			} 
 		}
 		return $this->QueryCondition;
-	}
-	
-	/**
-	* Gets sql search query by apending AND clause.
-	* @return string SQL query
-	*/
-	public function getAndQuery(){
-		return $this->generateQuery("AND");
-	}
-	
-	/**
-	* Gets sql search query by apending WHERE clause.
-	* @return string SQL query
-	*/
-	public function getWhereQuery(){
-		return $this->generateQuery("WHERE");
-	}
-	
-	/**
-	* Gets sql search query by automatically detecting and apending start clause.
-	* @return string SQL query
-	*/
-	public function getQuery(){
-		return $this->generateQuery();
 	}
 }
