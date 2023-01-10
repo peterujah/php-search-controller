@@ -75,6 +75,11 @@ class SearchController{
     */
 	private $queryEnd;
 
+	/**
+     * @var bool Search request query in lowercase
+    */
+	private $lowerCaseQuery = false;
+
 	public function __construct($algorithm = self::OR) {
 		$this->searchAlgorithm = $algorithm;
 		$this->operators = self::END_WITH_QUERY;
@@ -131,6 +136,12 @@ class SearchController{
 		$this->searchQuery = htmlspecialchars($query, ENT_QUOTES, "UTF-8");
 		return $this;
 	}
+
+	public function toLower(){
+		$this->lowerCaseQuery = true;
+		$this->searchQuery = strtolower($this->searchQuery);
+		return $this;
+	}
 	
 	/**
      * Set query prefix string.
@@ -174,7 +185,7 @@ class SearchController{
 		$queryString = "";
 		foreach($this->paramArray as $col){
 			$sqlQuery = str_replace("query", $value, $this->operators);
-			$queryString .=  $col . " {$this->queryStart} '{$sqlQuery}' {$this->queryEnd} ";
+			$queryString .=  ($this->lowerCaseQuery ? "LOWER(" . $col . ")" : $col ) . " {$this->queryStart} '{$sqlQuery}' {$this->queryEnd} ";
 		}
 		return $queryString;
 	}
