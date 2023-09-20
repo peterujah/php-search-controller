@@ -38,49 +38,49 @@ class SearchController{
 	/**
      * @var string SQL Query 
     */
-	private $QueryCondition = "";
+	private string $QueryCondition = '';
 
 	/**
      * @var string Search query algorithm that needs to be used
     */
-	private $searchAlgorithm;
+	private string $searchAlgorithm;
 
 	/**
      * @var string Search request query value
     */
-	private $searchQuery = null;
+	private mixed $searchQuery = '';
 
 	/**
-     * @var array MYSQL database table rows to search from
+     * @var array Search request query values
     */
-	private $paramArray = array();
+	private array $searchQueryBuilder = [];
+
+	/**
+     * @var array MYSQL database table rows to search form
+    */
+	private array $paramArray = [];
 
 	/**
      * @var string MYSQL database table row for tag value
     */
-	private $paramTags;
+	private string $paramTags;
 
 	/**
-     * @var string SQL LIKE query operator to be use
+     * @var string SQL LIKE query operator to be used
     */
-	private $operators;
+	private string $operators;
 
 	/**
      * @var string SQL query prefix
     */
-	private $queryStart;
+	private string $queryStart;
 
 	/**
      * @var string SQL query suffix
     */
-	private $queryEnd;
+	private string $queryEnd;
 
-	/**
-     * @var bool Search request query in lowercase
-    */
-	private $lowerCaseQuery = false;
-
-	public function __construct($algorithm = self::OR) {
+	public function __construct(string $algorithm = self::OR) {
 		$this->searchAlgorithm = $algorithm;
 		$this->operators = self::END_WITH_QUERY;
 		$this->queryStart = self::LIKE;
@@ -92,9 +92,8 @@ class SearchController{
      *
      * @param array          $param columns
      */
-	public function setParameter($param=array()){
+	public function setParameter(array $param=[]): void{
 		$this->paramArray = $param;
-		return $this;
 	}
 
 	/**
@@ -102,7 +101,7 @@ class SearchController{
      *
      * @param string          $query query
      */
-	public function setSQLQuery($query){
+	public function setSQLQuery(string $query): void{
 		$this->QueryCondition = $query;
 	}
 
@@ -111,9 +110,8 @@ class SearchController{
      *
      * @param string          $pattern name
      */
-	public function setOperators($pattern){
+	public function setOperators(string $pattern): void{
 		$this->operators = $pattern;
-		return $this;
 	}
 
 	/**
@@ -121,9 +119,8 @@ class SearchController{
      *
      * @param string          $column name
      */
-	public function setTags($column){
+	public function setTags(string $column): void{
 		$this->paramTags = $column;
-		return $this;
 	}
 
 	/**
@@ -132,46 +129,37 @@ class SearchController{
      * @param string          $query query value
      * @return object|SearchController 
      */
-	public function setQuery($query){
-		$this->searchQuery = htmlspecialchars($query, ENT_QUOTES, "UTF-8");
-		return $this;
-	}
-
-	public function toLower(){
-		$this->lowerCaseQuery = true;
-		$this->searchQuery = strtolower($this->searchQuery);
+	public function setQuery(string $query): SearchController{
+		$this->searchQuery = strtolower(htmlspecialchars($query, ENT_QUOTES, "UTF-8"));
 		return $this;
 	}
 	
 	/**
      * Set query prefix string.
      *
-     * @param string          $str query prefix
+     * @param string          $start query prefix
      */
-	public function setStart($str){
-		$this->queryStart = $str;
-		return $this;
+	public function setStart(string $start): void{
+		$this->queryStart = $start;
 	}
 
 	/**
      * Set query suffix string.
      *
-     * @param string          $str query suffix
+     * @param string          $end query suffix
      */
-	public function setEnd($str){
-		$this->queryEnd = $str;
-		return $this;
+	public function setEnd(string $end): void{
+		$this->queryEnd = $end;
 	}
 
 	/**
      * Split search query value by space.
      */
-	public function split(){
+	public function split(): void{
 		if(strpos($this->searchQuery, " ") !== false) {
 			$this->searchQuery = explode(" ", $this->searchQuery);
-			return;
 		}
-		$this->searchQuery = [$this->searchQuery];
+		//$this->searchQuery = [$this->searchQuery];
 	}
 
 	/**
@@ -181,29 +169,29 @@ class SearchController{
      * @return string query
      */
 
-	private function format($value) {
+	private function format(string $value): string {
 		$queryString = "";
 		foreach($this->paramArray as $col){
 			$sqlQuery = str_replace("query", $value, $this->operators);
-			$queryString .=  ($this->lowerCaseQuery ? "LOWER(" . $col . ")" : $col ) . " {$this->queryStart} '{$sqlQuery}' {$this->queryEnd} ";
+			$queryString .= "LOWER($col) {$this->queryStart} '{$sqlQuery}' {$this->queryEnd} ";
 		}
 		return $queryString;
 	}
 
-	private function buildQuery(){
+	private function buildQuery(): string{
 		return rtrim($this->format($this->searchQuery) , " {$this->queryEnd} ");
 	}
 
-	private function buildArrayQuery($i = 0){
+	private function buildArrayQuery(int $i = 0): string{
 		return rtrim($this->format($this->searchQuery[$i]) , " {$this->queryEnd} ");;
 	}
 
 	/**
-     * Determine which search method to use while creating query.
+     * Determine which search method to use while creating a query.
      *
      * @return string SQL query
      */
-	private function buildSQL(){
+	private function buildSQL(): string{
 		$sql = "";
 		if(!empty($this->paramTags)){
 			if(is_array($this->searchQuery)) {
@@ -235,7 +223,7 @@ class SearchController{
      *
      * @return string SQL query
      */
-	public function getQuery(){
+	public function getQuery(): string{
 		if (!empty($this->searchQuery)){ 
 			if (!empty($this->searchQuery)){ 
 				if (!empty($this->QueryCondition)){ 
