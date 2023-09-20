@@ -50,10 +50,6 @@ class SearchController{
     */
 	private mixed $searchQuery = '';
 
-	/**
-     * @var array Search request query values
-    */
-	private array $searchQueryBuilder = [];
 
 	/**
      * @var array MYSQL database table rows to search form
