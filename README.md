@@ -1,8 +1,8 @@
 # PHPSearchController
 
-PHPSearchController is a simple php class to search mysql database, it can build SQL query to perform MySQL database searches by takeing parameters that define database table fields and field values to search.
+PHPSearchController is a simple PHP class to search MySQL database, it can build SQL queries to perform MySQL database searches by taking parameters that define database table fields and field values to search.
 
-The class generates SQL conditions used to build SQL queries to perform database searches for records that match the criteria based on the table fields and field values defined by the parameters, It then combine several conditions using SQL operators such as `AND, OR, NAND, LIKE NOR & FIND_IN_SET` and return the appropriate queries for the search.
+The class generates SQL conditions used to build SQL queries to perform database searches for records that match the criteria based on the table fields and field values defined by the parameters, It then combines several conditions using SQL operators such as `AND, OR, NAND, LIKE NOR & FIND_IN_SET` and return the appropriate queries for the search.
 
 ## Installation
 
@@ -25,7 +25,7 @@ Set your preferred search operator the default is `SearchController::END_WITH_QU
 $search->setOperators(SearchController::HAVE_ANY_QUERY);
 ```
 
-To perform a database search build the search query like below.
+To perform a database search, you can just build your search query like the one below.
 
 ```php 
 $searchQuery = "PHP Code";
@@ -38,7 +38,8 @@ $search->setParameter(array(
 //var_export($search->getQuery());
 ```
 
-To search by tag using mysql `FIND_IN_SET`, build query like example below.
+To search by tag using MySQL `FIND_IN_SET`, build a query like the example below.
+
 ```php 
 $searchQuery = "PHP Code";
 $search->setQuery($searchQuery)->split();
@@ -46,7 +47,7 @@ $search->setTags("code_tags");
 //var_export($search->getQuery());
 ```
 
-Set inital query and pass search query to your mysql connection
+Set the initial query and pass the search query to your MySQL connection
 
 ```php 
 $search->setIniQuery("SELECT * FROM code WHERE id = 1323");
@@ -55,11 +56,12 @@ $db->conn()->execute();
 $result = $db->conn()->getAll();
 $db->conn()->free();
 ```
-OR bulid it with other sql query like below in your mysql connection
+
+OR build it with other sql queries like the below in your MySQL connection
 ```php 
 $db->conn()->prepare("
     SELECT * FROM code 
-    {$search->getWhereQuery()}
+    {$search->getQuery()}
     AND id = 1323
 ");
 $db->conn()->execute();		
@@ -69,7 +71,7 @@ $db->conn()->free();
 
 # Other Methods
 
-Returns the computed sql search queries by checking if initial query was specified or not to determine which start clause is needed.
+Returns the computed sql search queries by checking if the initial query was specified or not to determine which start clause is needed.
 ```php
 $search->getQuery()
 ```
@@ -80,19 +82,19 @@ Set your search keyword
 $search->setQuery("Foo Bar")
 ```
 
-Split search keyword `Foo Bar` into `Foo`, `Bar` as separate search terns
+Split search keyword `Foo Bar` into `Foo`, `Bar` as separate search terms
 ```php
 $search->split()
 ```
 
-Mapping your database column keys to perform search on
+Mapping your database column keys to perform a search on
 
 ```php
 $search->setParameter(array)
 ```
 
 
-Set initial SQL query before appending search after your query string 
+Set the initial SQL query before appending the search after your query string 
 
 ```php
 $search->setIniQuery('SELECT * FROM ...')
