@@ -43,13 +43,12 @@ class SearchController{
 	/**
      * @var string Search query algorithm that needs to be used
     */
-	private string $searchAlgorithm;
+	private string $searchAlgorithm = '';
 
 	/**
      * @var string|array Search request query value
     */
 	private string|array $searchQuery = '';
-
 
 	/**
      * @var array MYSQL database table rows to search form
@@ -64,19 +63,25 @@ class SearchController{
 	/**
      * @var string SQL LIKE query operator to be used
     */
-	private string $operators;
+	private string $operators = '';
 
 	/**
      * @var string SQL query prefix
     */
-	private string $queryStart;
+	private string $queryStart = '';
 
 	/**
      * @var string SQL query suffix
     */
-	private string $queryEnd;
+	private string $queryEnd = '';
 
-	public function __construct(string $algorithm = self::OR) {
+	/**
+	 * Initializes SearchController constructor
+	 * 
+	 * @param string $algorithm search algorithm
+	*/
+	public function __construct(string $algorithm = self::OR) 
+	{
 		$this->searchAlgorithm = $algorithm;
 		$this->operators = self::END_WITH_QUERY;
 		$this->queryStart = self::LIKE;
