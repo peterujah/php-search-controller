@@ -49,10 +49,10 @@ $search->setTags("code_tags");
 Set inital query and pass search query to your mysql connection
 
 ```php 
-$search->setSQLQuery("SELECT * FROM code WHERE id = 1323");
-$db->conn()->prepare($search->getAndQuery());
+$search->setIniQuery("SELECT * FROM code WHERE id = 1323");
+$db->conn()->prepare($search->getQuery());
 $db->conn()->execute();		
-$resault = $db->conn()->getAll();
+$result = $db->conn()->getAll();
 $db->conn()->free();
 ```
 OR bulid it with other sql query like below in your mysql connection
@@ -63,7 +63,7 @@ $db->conn()->prepare("
     AND id = 1323
 ");
 $db->conn()->execute();		
-$resault = $db->conn()->getAll();
+$result = $db->conn()->getAll();
 $db->conn()->free();
 ```
 
@@ -74,16 +74,31 @@ Returns the computed sql search queries by checking if initial query was specifi
 $search->getQuery()
 ```
 
-Returns the computed search queries by using `AND` as the start clause.
+Set your search keyword 
+
 ```php
-$search->getAndQuery()
-```
-Returns the computed search queries by using `WHERE` as the start clause.
-```php
-$search->getWhereQuery()
+$search->setQuery("Foo Bar")
 ```
 
-# Refrence
+Split search keyword `Foo Bar` into `Foo`, `Bar` as separate search terns
+```php
+$search->split()
+```
+
+Mapping your database column keys to perform search on
+
+```php
+$search->setParameter(array)
+```
+
+
+Set initial SQL query before appending search after your query string 
+
+```php
+$search->setIniQuery('SELECT * FROM ...')
+```
+
+# Reference
 
 Specify search operator `$search->setOperators(SearchController::HAVE_ANY_QUERY)`
 
@@ -98,7 +113,7 @@ Specify search operator `$search->setOperators(SearchController::HAVE_ANY_QUERY)
 | START_END_WITH_QUERY     | Finds any values that start with "query" and ends with "query"                    |
 
 
-Initalise search class with a method `new SearchController(SearchController::OR)`
+Initialize search class with a method `new SearchController(SearchController::OR)`
 
 | Search Methods         | Description                                                                         |
 |------------------------|-------------------------------------------------------------------------------------|
