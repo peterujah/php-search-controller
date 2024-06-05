@@ -76,6 +76,11 @@ class SearchController{
 	private string $queryEnd = '';
 
 	/**
+     * @var array Search words.
+    */
+	private array $wordList = [];
+
+	/**
 	 * Initializes SearchController constructor
 	 * 
 	 * @param string $algorithm search algorithm
@@ -86,6 +91,16 @@ class SearchController{
 		$this->operators = self::END_WITH_QUERY;
 		$this->queryStart = self::LIKE;
 	 	$this->queryEnd = self::OR;
+	}
+
+	/**
+	 * Get the search word list
+	 * 
+	 * @return array Return word list.
+	*/
+	public function getWordList(): array 
+	{
+		return (array) $this->wordList;
 	}
 		
 	/**
@@ -155,6 +170,12 @@ class SearchController{
 	{
 		$this->searchQuery = strtolower(htmlspecialchars($query, ENT_QUOTES, "UTF-8"));
 
+		if(strpos($this->searchQuery, " ") !== false){
+			$this->wordList = explode(" ", $this->searchQuery);
+		}else{
+			$this->wordList = [$this->searchQuery];
+		}
+
 		return $this;
 	}
 	
@@ -193,10 +214,9 @@ class SearchController{
      */
 	public function split(): void
 	{
-		if(is_string($this->searchQuery) && strpos($this->searchQuery, " ") !== false) {
-			$this->searchQuery = explode(" ", $this->searchQuery);
+		if(count($this->wordList) > 1) {
+			$this->searchQuery = $this->wordList;
 		}
-		//$this->searchQuery = [$this->searchQuery];
 	}
 
 	/**
